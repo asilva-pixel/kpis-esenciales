@@ -93,11 +93,6 @@
       margin: 0 0 14px 0;
       font-size: 16px;
     }
-    .small-note {
-      color: #777;
-      font-size: 12px;
-      margin-top: 6px;
-    }
     .error {
       background: #fff3cd;
       border: 1px solid #ffeeba;
@@ -204,7 +199,6 @@
     errorBox.style.display = "none";
   }
 
-  // Cargar colaboradores desde Google Sheets
   fetch(SHEET_URL)
     .then(function(r) { return r.text(); })
     .then(function(text) {
@@ -249,7 +243,8 @@
       let etapasOpts = '<option value="">-- Selecciona --</option>';
       etapas.forEach(function(e) { etapasOpts += '<option>' + e + '</option>'; });
 
-      block.innerHTML = '<h3>📌 ' + area + '</h3>' +
+      block.innerHTML =
+        '<h3>📌 ' + area + '</h3>' +
         '<label>¿Qué necesitas de esta área?</label>' +
         '<textarea id="' + area + '_necesitas" placeholder="Describe el entregable o acción concreta..."></textarea>' +
         '<label>¿En qué etapa del ciclo comercial impacta?</label>' +
