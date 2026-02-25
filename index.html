@@ -4,139 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KPIs Esenciales — Gestión Comercial</title>
-
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
-
   <style>
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background-color: #f9f9f9;
-      padding: 40px 0;
-    }
-    .container {
-      max-width: 780px;
-      background: #fff;
-      margin: auto;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,.08);
-    }
-    .logo {
-      display: block;
-      margin: 0 auto 20px;
-      max-width: 180px;
-    }
-    h1 {
-      color: #fa345e;
-      text-align: center;
-      margin-bottom: 10px;
-      font-size: 26px;
-    }
-    .subtitle {
-      text-align: center;
-      color: #666;
-      margin-bottom: 30px;
-      font-size: 14px;
-    }
-    label {
-      display: block;
-      margin: 16px 0 6px;
-      font-weight: 600;
-      color: #222;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 14px;
-      box-sizing: border-box;
-      font-family: 'Montserrat', sans-serif;
-    }
-    select {
-      background-color: #fef2f3;
-    }
-    select[multiple] {
-      background-color: #fef2f3;
-      min-height: 160px;
-    }
-    textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
-    button {
-      background-color: #fa345e;
-      color: white;
-      border: none;
-      padding: 12px 18px;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 24px;
-      width: 100%;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-    }
-    button:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-    .block {
-      border: 1px solid #eee;
-      border-radius: 12px;
-      padding: 18px;
-      margin-top: 18px;
-      background: #fff;
-    }
-    .block h3 {
-      color: #fa345e;
-      margin: 0 0 14px 0;
-      font-size: 16px;
-    }
-    .error {
-      background: #fff3cd;
-      border: 1px solid #ffeeba;
-      color: #856404;
-      border-radius: 8px;
-      padding: 10px;
-      margin-top: 12px;
-      display: none;
-      font-size: 13px;
-    }
-    .success {
-      background: #eaf7ea;
-      border: 1px solid #cfe9cf;
-      color: #256b25;
-      border-radius: 8px;
-      padding: 10px;
-      margin-top: 12px;
-      display: none;
-      font-size: 13px;
-    }
-    hr {
-      border: none;
-      border-top: 1px solid #eee;
-      margin: 26px 0;
-    }
-    .operacion-display {
-      background: #eaf7ea;
-      border: 1px solid #cfe9cf;
-      color: #256b25;
-      border-radius: 8px;
-      padding: 10px 14px;
-      margin-top: 6px;
-      font-size: 14px;
-      font-weight: 600;
-      min-height: 38px;
-    }
-    .hint {
-      color: #999;
-      font-size: 12px;
-      margin-top: 4px;
-    }
+    body { font-family: 'Montserrat', sans-serif; background-color: #f9f9f9; padding: 40px 0; }
+    .container { max-width: 780px; background: #fff; margin: auto; padding: 40px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+    .logo { display: block; margin: 0 auto 20px; max-width: 180px; }
+    h1 { color: #fa345e; text-align: center; margin-bottom: 10px; font-size: 26px; }
+    .subtitle { text-align: center; color: #666; margin-bottom: 30px; font-size: 14px; }
+    label { display: block; margin: 16px 0 6px; font-weight: 600; color: #222; }
+    input, select, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 14px; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+    select { background-color: #fef2f3; }
+    select[multiple] { background-color: #fef2f3; min-height: 160px; }
+    textarea { resize: vertical; min-height: 80px; }
+    button { background-color: #fa345e; color: white; border: none; padding: 12px 18px; border-radius: 8px; font-size: 16px; cursor: pointer; margin-top: 24px; width: 100%; font-family: 'Montserrat', sans-serif; font-weight: 600; }
+    button:disabled { background-color: #ccc; cursor: not-allowed; }
+    .block { border: 1px solid #eee; border-radius: 12px; padding: 18px; margin-top: 18px; background: #fff; }
+    .block h3 { color: #fa345e; margin: 0 0 14px 0; font-size: 16px; }
+    .error { background: #fff3cd; border: 1px solid #ffeeba; color: #856404; border-radius: 8px; padding: 10px; margin-top: 12px; display: none; font-size: 13px; }
+    .success { background: #eaf7ea; border: 1px solid #cfe9cf; color: #256b25; border-radius: 8px; padding: 10px; margin-top: 12px; display: none; font-size: 13px; }
+    hr { border: none; border-top: 1px solid #eee; margin: 26px 0; }
+    .operacion-display { background: #eaf7ea; border: 1px solid #cfe9cf; color: #256b25; border-radius: 8px; padding: 10px 14px; margin-top: 6px; font-size: 14px; font-weight: 600; min-height: 38px; }
+    .hint { color: #999; font-size: 12px; margin-top: 4px; }
   </style>
 </head>
-
 <body>
   <div class="container">
     <img src="https://estudios.apprecio.com/hubfs/logos/Apprecio-logo-rojo.png" class="logo" />
@@ -144,7 +34,6 @@
     <div class="subtitle">Identifica las necesidades por área que impactan en tu gestión comercial.</div>
 
     <form id="kpisForm">
-
       <label>Nombre del Colaborador</label>
       <select id="nombreSelect" required>
         <option value="">Cargando colaboradores...</option>
@@ -178,14 +67,13 @@
   </div>
 
 <script>
-  const SHEET_URL = "https://docs.google.com/spreadsheets/d/1nLktyBlmM1-NdRLVywPlNiUJwBCaOC26ONpgPTSxv-w/gviz/tq?tqx=out:json&sheet=Colaboradores";
-  const WEBHOOK_URL = "https://n8n.openip.cl/webhook-test/kpis esenciales";
+  var SHEET_URL = "https://docs.google.com/spreadsheets/d/1nLktyBlmM1-NdRLVywPlNiUJwBCaOC26ONpgPTSxv-w/gviz/tq?tqx=out:json&sheet=Colaboradores";
+  var WEBHOOK_URL = "https://n8n.openip.cl/webhook-test/kpis esenciales";
 
-  const errorBox = document.getElementById("errorBox");
-  const successBox = document.getElementById("successBox");
-  const submitBtn = document.getElementById("submitBtn");
-
-  let colaboradores = {};
+  var errorBox = document.getElementById("errorBox");
+  var successBox = document.getElementById("successBox");
+  var submitBtn = document.getElementById("submitBtn");
+  var colaboradores = {};
 
   function showError(msg) {
     errorBox.textContent = msg;
@@ -199,24 +87,65 @@
     errorBox.style.display = "none";
   }
 
+  function renderPreguntas() {
+    var areasSelect = document.getElementById("areasSelect");
+    var areas = [];
+    for (var i = 0; i < areasSelect.options.length; i++) {
+      if (areasSelect.options[i].selected) {
+        areas.push(areasSelect.options[i].value);
+      }
+    }
+
+    var contenedor = document.getElementById("preguntasAreas");
+    contenedor.innerHTML = "";
+
+    var etapas = ["Prospección", "Calificación", "Propuesta", "Negociación", "Cierre", "Postventa"];
+
+    for (var j = 0; j < areas.length; j++) {
+      var area = areas[j];
+      var areaId = area.replace(/[^a-zA-Z0-9]/g, "_");
+
+      var etapasOpts = '<option value="">-- Selecciona --</option>';
+      for (var k = 0; k < etapas.length; k++) {
+        etapasOpts += '<option value="' + etapas[k] + '">' + etapas[k] + '</option>';
+      }
+
+      var block = document.createElement("div");
+      block.className = "block";
+      block.innerHTML =
+        '<h3>📌 ' + area + '</h3>' +
+        '<label>¿Qué necesitas de esta área? <span style="font-weight:400;color:#666">(describe concretamente el entregable/acción)</span></label>' +
+        '<textarea id="' + areaId + '_necesitas" placeholder="Describe el entregable o acción concreta..."></textarea>' +
+        '<label>¿En qué etapa del ciclo comercial impacta?</label>' +
+        '<select id="' + areaId + '_etapa">' + etapasOpts + '</select>' +
+        '<label>Impacto esperado en tu gestión</label>' +
+        '<textarea id="' + areaId + '_impacto" placeholder="¿Qué mejora o resultado esperas?"></textarea>' +
+        '<label>¿Qué KPI propones para esta área?</label>' +
+        '<input type="text" id="' + areaId + '_kpi" placeholder="Ej: Tasa de conversión, tiempo de respuesta..." />';
+
+      contenedor.appendChild(block);
+    }
+  }
+
+  // Cargar colaboradores
   fetch(SHEET_URL)
     .then(function(r) { return r.text(); })
     .then(function(text) {
-      const json = JSON.parse(text.substring(47).slice(0, -2));
-      const rows = json.table.rows;
-      const select = document.getElementById("nombreSelect");
+      var json = JSON.parse(text.substring(47).slice(0, -2));
+      var rows = json.table.rows;
+      var select = document.getElementById("nombreSelect");
       select.innerHTML = '<option value="">-- Selecciona --</option>';
-      rows.forEach(function(row) {
-        const nombre = row.c[0] ? row.c[0].v : null;
-        const operacion = row.c[1] ? row.c[1].v : null;
+      for (var i = 0; i < rows.length; i++) {
+        var nombre = rows[i].c[0] ? rows[i].c[0].v : null;
+        var operacion = rows[i].c[1] ? rows[i].c[1].v : null;
         if (nombre && nombre !== "Nombre") {
           colaboradores[nombre] = operacion;
-          const opt = document.createElement("option");
+          var opt = document.createElement("option");
           opt.value = nombre;
           opt.textContent = nombre;
           select.appendChild(opt);
         }
-      });
+      }
     })
     .catch(function(err) {
       showError("Error al cargar colaboradores: " + err.message);
@@ -224,49 +153,23 @@
     });
 
   document.getElementById("nombreSelect").addEventListener("change", function() {
-    const nombre = this.value;
-    const display = document.getElementById("operacionDisplay");
-    display.textContent = colaboradores[nombre] || "—";
+    document.getElementById("operacionDisplay").textContent = colaboradores[this.value] || "—";
   });
 
-  document.getElementById("areasSelect").addEventListener("change", function() {
-    const areas = Array.from(this.selectedOptions).map(function(o) { return o.value; });
-    const contenedor = document.getElementById("preguntasAreas");
-    contenedor.innerHTML = "";
+  document.getElementById("areasSelect").addEventListener("change", renderPreguntas);
 
-    const etapas = ["Prospección", "Calificación", "Propuesta", "Negociación", "Cierre", "Postventa"];
-
-    areas.forEach(function(area) {
-      const block = document.createElement("div");
-      block.className = "block";
-
-      let etapasOpts = '<option value="">-- Selecciona --</option>';
-      etapas.forEach(function(e) { etapasOpts += '<option>' + e + '</option>'; });
-
-      block.innerHTML =
-        '<h3>📌 ' + area + '</h3>' +
-        '<label>¿Qué necesitas de esta área?</label>' +
-        '<textarea id="' + area + '_necesitas" placeholder="Describe el entregable o acción concreta..."></textarea>' +
-        '<label>¿En qué etapa del ciclo comercial impacta?</label>' +
-        '<select id="' + area + '_etapa">' + etapasOpts + '</select>' +
-        '<label>Impacto esperado en tu gestión</label>' +
-        '<textarea id="' + area + '_impacto"></textarea>' +
-        '<label>¿Qué KPI propones para esta área?</label>' +
-        '<input type="text" id="' + area + '_kpi" placeholder="Ej: Tasa de conversión, tiempo de respuesta..." />';
-
-      contenedor.appendChild(block);
-    });
-  });
-
-  document.getElementById("kpisForm").addEventListener("submit", async function(e) {
+  document.getElementById("kpisForm").addEventListener("submit", function(e) {
     e.preventDefault();
-
     errorBox.style.display = "none";
     successBox.style.display = "none";
 
-    const nombre = document.getElementById("nombreSelect").value;
-    const operacion = document.getElementById("operacionDisplay").textContent;
-    const areas = Array.from(document.getElementById("areasSelect").selectedOptions).map(function(o) { return o.value; });
+    var nombre = document.getElementById("nombreSelect").value;
+    var operacion = document.getElementById("operacionDisplay").textContent;
+    var areasSelect = document.getElementById("areasSelect");
+    var areas = [];
+    for (var i = 0; i < areasSelect.options.length; i++) {
+      if (areasSelect.options[i].selected) areas.push(areasSelect.options[i].value);
+    }
 
     if (!nombre) { showError("Por favor selecciona un colaborador."); return; }
     if (areas.length === 0) { showError("Por favor selecciona al menos un área."); return; }
@@ -274,38 +177,41 @@
     submitBtn.disabled = true;
     submitBtn.textContent = "Enviando...";
 
-    try {
-      for (var i = 0; i < areas.length; i++) {
-        var area = areas[i];
-        var payload = {
-          nombre: nombre,
-          operacion: operacion,
-          area: area,
-          que_necesitas: document.getElementById(area + "_necesitas") ? document.getElementById(area + "_necesitas").value : "",
-          etapa: document.getElementById(area + "_etapa") ? document.getElementById(area + "_etapa").value : "",
-          impacto: document.getElementById(area + "_impacto") ? document.getElementById(area + "_impacto").value : "",
-          kpi: document.getElementById(area + "_kpi") ? document.getElementById(area + "_kpi").value : ""
-        };
-        await fetch(WEBHOOK_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-      }
-      showSuccess("✅ ¡Formulario enviado correctamente!");
-      submitBtn.textContent = "✅ Enviar";
-      setTimeout(function() {
-        document.getElementById("kpisForm").reset();
-        document.getElementById("operacionDisplay").textContent = "—";
-        document.getElementById("preguntasAreas").innerHTML = "";
-        successBox.style.display = "none";
-      }, 2500);
-    } catch(err) {
-      showError("❌ Error al enviar: " + err.message);
-      submitBtn.textContent = "✅ Enviar";
-    }
+    var promises = areas.map(function(area) {
+      var areaId = area.replace(/[^a-zA-Z0-9]/g, "_");
+      var payload = {
+        nombre: nombre,
+        operacion: operacion,
+        area: area,
+        que_necesitas: document.getElementById(areaId + "_necesitas") ? document.getElementById(areaId + "_necesitas").value : "",
+        etapa: document.getElementById(areaId + "_etapa") ? document.getElementById(areaId + "_etapa").value : "",
+        impacto: document.getElementById(areaId + "_impacto") ? document.getElementById(areaId + "_impacto").value : "",
+        kpi: document.getElementById(areaId + "_kpi") ? document.getElementById(areaId + "_kpi").value : ""
+      };
+      return fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+    });
 
-    submitBtn.disabled = false;
+    Promise.all(promises)
+      .then(function() {
+        showSuccess("✅ ¡Formulario enviado correctamente!");
+        submitBtn.textContent = "✅ Enviar";
+        submitBtn.disabled = false;
+        setTimeout(function() {
+          document.getElementById("kpisForm").reset();
+          document.getElementById("operacionDisplay").textContent = "—";
+          document.getElementById("preguntasAreas").innerHTML = "";
+          successBox.style.display = "none";
+        }, 2500);
+      })
+      .catch(function(err) {
+        showError("❌ Error al enviar: " + err.message);
+        submitBtn.textContent = "✅ Enviar";
+        submitBtn.disabled = false;
+      });
   });
 </script>
 </body>
