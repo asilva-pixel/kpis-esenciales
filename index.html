@@ -252,10 +252,8 @@
       block.innerHTML = '<h3>📌 ' + area + '</h3>' +
         '<label>¿Qué necesitas de esta área?</label>' +
         '<textarea id="' + area + '_necesitas" placeholder="Describe el entregable o acción concreta..."></textarea>' +
-        '<label>¿Para qué etapa del ciclo comercial lo necesitas?</label>' +
+        '<label>¿En qué etapa del ciclo comercial impacta?</label>' +
         '<select id="' + area + '_etapa">' + etapasOpts + '</select>' +
-        '<label>¿Qué decisión o resultado comercial habilita?</label>' +
-        '<textarea id="' + area + '_decision"></textarea>' +
         '<label>Impacto esperado en tu gestión</label>' +
         '<textarea id="' + area + '_impacto"></textarea>' +
         '<label>¿Qué KPI propones para esta área?</label>' +
@@ -290,7 +288,6 @@
           area: area,
           que_necesitas: document.getElementById(area + "_necesitas") ? document.getElementById(area + "_necesitas").value : "",
           etapa: document.getElementById(area + "_etapa") ? document.getElementById(area + "_etapa").value : "",
-          decision: document.getElementById(area + "_decision") ? document.getElementById(area + "_decision").value : "",
           impacto: document.getElementById(area + "_impacto") ? document.getElementById(area + "_impacto").value : "",
           kpi: document.getElementById(area + "_kpi") ? document.getElementById(area + "_kpi").value : ""
         };
