@@ -42,15 +42,12 @@
   <div id="mensaje"></div>
 
   <script>
-    // ⚠️ REEMPLAZA esta URL con la de tu webhook en n8n
-    const WEBHOOK_URL = "https://TU-N8N.com/webhook/gestion-comercial";
+    const WEBHOOK_URL = "https://n8n.openip.cl/webhook-test/kpis esenciales";
 
-    // ⚠️ REEMPLAZA con la URL de tu Google Sheet publicada como JSON
-    const SHEET_URL = "https://docs.google.com/spreadsheets/d/TU_ID/gviz/tq?tqx=out:json&sheet=Colaboradores";
+    const SHEET_URL = "https://docs.google.com/spreadsheets/d/1nLktyBlmM1-NdRLVywPlNiUJwBCaOC26ONpgPTSxv-w/gviz/tq?tqx=out:json&sheet=Colaboradores";
 
     let colaboradores = {};
 
-    // Cargar colaboradores desde Google Sheets
     fetch(SHEET_URL)
       .then(r => r.text())
       .then(text => {
@@ -60,7 +57,7 @@
         rows.forEach(row => {
           const nombre = row.c[0]?.v;
           const operacion = row.c[1]?.v;
-          if (nombre) {
+          if (nombre && nombre !== "Nombre") {
             colaboradores[nombre] = operacion;
             const opt = document.createElement("option");
             opt.value = nombre;
@@ -117,7 +114,6 @@
         return;
       }
 
-      // Envía una fila por cada área seleccionada
       for (const area of areas) {
         const payload = {
           nombre,
