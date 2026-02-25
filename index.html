@@ -1,1 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestión Comercial</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; padding: 20px; }
+    label { font-weight: bold; display: block; margin-top: 15px; }
+    select, textarea, input { width: 100%; padding: 8px; margin-top: 5px; border-radius: 6px; border: 1px solid #ccc; }
+    .area-block { background: #f0f4ff; border-radius: 8px; padding: 15px; margin-top: 15px; }
+    button { margin-top: 20px; background: #4a6cf7; color: white; padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; }
+    #operacion-display { background: #e8f5e9; padding: 10px; border-radius: 6px; margin-top: 5px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h2>📊 Gestión Comercial — Necesidades por Área</h2>
 
+  <label>1. Nombre del Colaborador:</label>
+  <select id="nombre" onchange="asignarOperacion()">
+    <option value="">-- Selecciona --</option>
+  </select>
+
+  <label>Operación asignada:</label>
+  <div id="operacion-display">—</div>
+
+  <label>2. Elige las áreas que impactan en tu gestión comercial (puedes seleccionar varias):</label>
+  <select id="areas" multiple size="8">
+    <option value="Marketing">Marketing</option>
+    <option value="Finanzas">Finanzas</option>
+    <option value="Operaciones">Operaciones</option>
+    <option value="Legal">Legal</option>
+    <option value="TI / Tecnología">TI / Tecnología</option>
+    <option value="RRHH">RRHH</option>
+    <option value="Logística">Logística</option>
+    <option value="Producto">Producto</option>
+  </select>
+  <small>💡 Mantén presionado Ctrl (o Cmd en Mac) para seleccionar varias</small>
+
+  <div id="preguntas-areas"></div>
+
+  <button onclick="enviarFormulario()">✅ Enviar</button>
+  <div id="mensaje"></div>
+
+  <script>
+    // ⚠️ REEMPLAZA esta URL con la de tu webhook en n8n
+    const WEBHOOK_URL = "https://TU-N8N.com/webhook/gestion-comercial";
+
+    // ⚠️ REEMPLAZA con la URL de tu Google Sheet publicada como JSON
+    const SHEET_URL = "https://docs.google.com/spreadsheets/d/TU_ID/gviz/tq?tqx=out:json&sheet=Colaboradores";
+
+    let colaboradores = {};
+
+    // Cargar colaboradores desde Google Sheets
+    fetch(SHEET_URL)
+      .then(r => r.text())
+      .then(text => {
+        const json = JSON.parse(text.substring(47).slice(0, -2));
+        const rows = json.table.rows;
+        const select = document.getElementById("nombre");
+        rows.forEach(row => {
+          const nombre = row.c[0]?.v;
+          const operacion = row.c[1]?.v;
+          if (nombre) {
+            colaboradores[nombre] = operacion;
+            const opt = document.createElement("option");
+            opt.value = nombre;
+            opt.textContent = nombre;
+            select.appendChild(opt);
+          }
+        });
+      });
+
+    function asignarOperacion() {
+      const nombre = document.getElementById("nombre").value;
+      document.getElementById("operacion-display").textContent = colaboradores[nombre] || "—";
+    }
+
+    document.getElementById("areas").addEventListener("change", generarPreguntas);
+
+    function generarPreguntas() {
+      const areas = Array.from(document.getElementById("areas").selectedOptions).map(o => o.value);
+      const contenedor = document.getElementById("preguntas-areas");
+      contenedor.innerHTML = "";
+      areas.forEach(area => {
+        contenedor.innerHTML += `
+          <div class="area-block">
+            <h3>📌 ${area}</h3>
+            <label>¿Qué necesitas de esta área?</label>
+            <textarea id="${area}_necesitas" rows="2" placeholder="Describe el entregable o acción concreta..."></textarea>
+            <label>¿Para qué etapa del ciclo comercial lo necesitas?</label>
+            <select id="${area}_etapa">
+              <option value="">-- Selecciona --</option>
+              <option>Prospección</option>
+              <option>Calificación</option>
+              <option>Propuesta</option>
+              <option>Negociación</option>
+              <option>Cierre</option>
+              <option>Postventa</option>
+            </select>
+            <label>¿Qué decisión o resultado comercial habilita?</label>
+            <textarea id="${area}_decision" rows="2"></textarea>
+            <label>Impacto esperado en tu gestión:</label>
+            <textarea id="${area}_impacto" rows="2"></textarea>
+            <label>¿Qué KPI propones para esta área?</label>
+            <input type="text" id="${area}_kpi" placeholder="Ej: Tasa de conversión, tiempo de respuesta...">
+          </div>`;
+      });
+    }
+
+    async function enviarFormulario() {
+      const nombre = document.getElementById("nombre").value;
+      const operacion = document.getElementById("operacion-display").textContent;
+      const areas = Array.from(document.getElementById("areas").selectedOptions).map(o => o.value);
+
+      if (!nombre || areas.length === 0) {
+        alert("Por favor selecciona un colaborador y al menos un área.");
+        return;
+      }
+
+      // Envía una fila por cada área seleccionada
+      for (const area of areas) {
+        const payload = {
+          nombre,
+          operacion,
+          area,
+          que_necesitas: document.getElementById(`${area}_necesitas`)?.value,
+          etapa: document.getElementById(`${area}_etapa`)?.value,
+          decision: document.getElementById(`${area}_decision`)?.value,
+          impacto: document.getElementById(`${area}_impacto`)?.value,
+          kpi: document.getElementById(`${area}_kpi`)?.value,
+        };
+        await fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+      }
+
+      document.getElementById("mensaje").innerHTML = "<p style='color:green;font-weight:bold'>✅ ¡Formulario enviado correctamente!</p>";
+    }
+  </script>
+</body>
+</html>
