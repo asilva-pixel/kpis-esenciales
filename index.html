@@ -142,11 +142,48 @@
     }
 
     var contenedor = document.getElementById("preguntasAreas");
-    contenedor.innerHTML = "";
 
+    // Guardar datos existentes antes de re-renderizar
+    var datosGuardados = {};
+    var bloquesPrevios = contenedor.querySelectorAll(".block");
+    for (var b = 0; b < bloquesPrevios.length; b++) {
+      var areaGuardada = bloquesPrevios[b].getAttribute("data-area");
+      var areaIdGuardada = bloquesPrevios[b].getAttribute("data-areaid");
+      var necesidadesPrevias = bloquesPrevios[b].querySelectorAll(".necesidad-block");
+      datosGuardados[areaGuardada] = [];
+      for (var nb = 0; nb < necesidadesPrevias.length; nb++) {
+        var idx = nb + 1;
+        var etapaSel = document.getElementById(areaIdGuardada + "_etapa_" + idx);
+        var etapaVals = [];
+        if (etapaSel) {
+          for (var ev = 0; ev < etapaSel.options.length; ev++) {
+            if (etapaSel.options[ev].selected) etapaVals.push(etapaSel.options[ev].value);
+          }
+        }
+        datosGuardados[areaGuardada].push({
+          necesitas: document.getElementById(areaIdGuardada + "_necesitas_" + idx) ? document.getElementById(areaIdGuardada + "_necesitas_" + idx).value : "",
+          etapa: etapaVals,
+          impacto: document.getElementById(areaIdGuardada + "_impacto_" + idx) ? document.getElementById(areaIdGuardada + "_impacto_" + idx).value : "",
+          kpi: document.getElementById(areaIdGuardada + "_kpi_" + idx) ? document.getElementById(areaIdGuardada + "_kpi_" + idx).value : ""
+        });
+      }
+    }
+
+    // Eliminar bloques de áreas que ya no están seleccionadas
+    for (var b2 = bloquesPrevios.length - 1; b2 >= 0; b2--) {
+      var areaBloque = bloquesPrevios[b2].getAttribute("data-area");
+      if (areas.indexOf(areaBloque) === -1) {
+        contenedor.removeChild(bloquesPrevios[b2]);
+      }
+    }
+
+    // Agregar bloques para áreas nuevas
     for (var j = 0; j < areas.length; j++) {
       var area = areas[j];
       var areaId = area.replace(/[^a-zA-Z0-9]/g, "_");
+
+      // Si ya existe el bloque, no lo recreamos
+      if (contenedor.querySelector('[data-area="' + area + '"]')) continue;
 
       var block = document.createElement("div");
       block.className = "block";
@@ -159,7 +196,17 @@
 
       var contenedorNecesidades = document.createElement("div");
       contenedorNecesidades.className = "necesidades-container";
-      contenedorNecesidades.appendChild(crearNecesidadBlock(areaId, 1));
+
+      // Restaurar datos guardados si existen
+      var savedData = datosGuardados[area];
+      if (savedData && savedData.length > 0) {
+        for (var sd = 0; sd < savedData.length; sd++) {
+          contenedorNecesidades.appendChild(crearNecesidadBlock(areaId, sd + 1));
+        }
+      } else {
+        contenedorNecesidades.appendChild(crearNecesidadBlock(areaId, 1));
+      }
+
       block.appendChild(contenedorNecesidades);
 
       var btnAgregar = document.createElement("button");
@@ -172,6 +219,29 @@
       block.appendChild(btnAgregar);
 
       contenedor.appendChild(block);
+
+      // Restaurar valores guardados
+      if (savedData && savedData.length > 0) {
+        for (var sd2 = 0; sd2 < savedData.length; sd2++) {
+          var idx2 = sd2 + 1;
+          var d = savedData[sd2];
+          if (document.getElementById(areaId + "_necesitas_" + idx2)) document.getElementById(areaId + "_necesitas_" + idx2).value = d.necesitas;
+          if (document.getElementById(areaId + "_impacto_" + idx2)) document.getElementById(areaId + "_impacto_" + idx2).value = d.impacto;
+          if (document.getElementById(areaId + "_kpi_" + idx2)) document.getElementById(areaId + "_kpi_" + idx2).value = d.kpi;
+          var etapaSelRestore = document.getElementById(areaId + "_etapa_" + idx2);
+          if (etapaSelRestore && d.etapa) {
+            for (var er = 0; er < etapaSelRestore.options.length; er++) {
+              etapaSelRestore.options[er].selected = d.etapa.indexOf(etapaSelRestore.options[er].value) !== -1;
+            }
+          }
+        }
+      }
+    }
+
+    // Reordenar bloques según el orden de selección
+    for (var k = 0; k < areas.length; k++) {
+      var bloqueOrden = contenedor.querySelector('[data-area="' + areas[k] + '"]');
+      if (bloqueOrden) contenedor.appendChild(bloqueOrden);
     }
   }
 
