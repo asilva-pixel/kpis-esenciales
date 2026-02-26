@@ -225,7 +225,7 @@
     submitBtn.disabled = true;
     submitBtn.textContent = "Enviando...";
 
-    var promises = [];
+    var filas = [];
     for (var i = 0; i < areas.length; i++) {
       var area = areas[i];
       var areaId = area.replace(/[^a-zA-Z0-9]/g, "_");
@@ -239,7 +239,7 @@
             if (etapaSel.options[e].selected) etapaVals.push(etapaSel.options[e].value);
           }
         }
-        var payload = {
+        filas.push({
           nombre: nombre,
           operacion: operacion,
           area: area,
@@ -247,16 +247,15 @@
           etapa: etapaVals.join(", "),
           impacto: document.getElementById(areaId + "_impacto_" + idx) ? document.getElementById(areaId + "_impacto_" + idx).value : "",
           kpi: document.getElementById(areaId + "_kpi_" + idx) ? document.getElementById(areaId + "_kpi_" + idx).value : ""
-        };
-        promises.push(fetch(WEBHOOK_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        }));
+        });
       }
     }
 
-    Promise.all(promises)
+    fetch(WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ filas: filas })
+    })
       .then(function() {
         showSuccess("✅ ¡Formulario enviado correctamente!");
         submitBtn.textContent = "✅ Enviar";
